@@ -33,7 +33,7 @@ test:
 
 build-docker-image:
   stage: build-docker-image
-  image: ubuntu
+  image: docker:latest
   tags: 
     - docker-build
   script:

@@ -35,6 +35,7 @@ test:
 
 build-docker-image:
   stage: build-docker-image
+  image: docker:latest
   tags: 
     - docker-build
   script:

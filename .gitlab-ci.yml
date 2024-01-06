@@ -36,6 +36,8 @@ test:
 build-docker-image:
   stage: build-docker-image
   image: docker:latest
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
   tags: 
     - docker
   script:

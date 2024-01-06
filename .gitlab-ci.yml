@@ -36,5 +36,6 @@ build-docker-image:
   tags: 
     - docker-build
   script:
+    - docker info
     - docker buildx create --use
     - docker buildx build --platform linux/amd64 -t user-service:x86 .

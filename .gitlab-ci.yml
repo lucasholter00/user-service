@@ -34,7 +34,7 @@ test:
 build-docker-image:
   stage: build-docker-image
   tags: 
-    - docker
+    - docker-build
   script:
     - docker buildx create --use
     - docker buildx build --platform linux/amd64 -t user-service:x86 .

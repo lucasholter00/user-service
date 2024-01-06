@@ -41,6 +41,6 @@ build-docker-image:
   tags: 
     - docker
   script:
-    - systemctl start docker
+    - dockerd --experimental
     - docker buildx create --use
     - docker buildx build --platform linux/amd64 -t user-service:x86 .

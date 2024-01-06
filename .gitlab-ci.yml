@@ -11,6 +11,7 @@ image: golang:latest
 stages:
   - build
   - test
+  - build-docker-image
 
 compile:
   stage: build
@@ -29,3 +30,11 @@ test:
     - docker
   script:
     - go test ./... -v
+
+build-docker-image:
+  stage: build-docker-image
+  tags: 
+    - docker
+  script:
+    - docker buildx create --use
+    - docker buildx build --platform linux/amd64 -t user-service:x86 .

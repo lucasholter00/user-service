@@ -33,7 +33,7 @@ test:
 
 build-docker-image:
   stage: build-docker-image
-  image: docker:20.10
+  image: ubuntu
   tags: 
     - docker-build
   script:

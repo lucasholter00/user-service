@@ -34,31 +34,39 @@ stages:
 #  script:
 #    - go test ./... -v
 
-build-docker-image:
-  stage: build-docker-image
-  image: docker:latest
-  tags: 
-    - docker-build
-  services:
-    - docker:dind
-  variables:  # not strictly needed, depending on runner configuration
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
+#build-docker-image:
+#  stage: build-docker-image
+#  image: docker:latest
+#  tags: 
+#    - docker-build
+#  services:
+#    - docker:dind
+#  variables:  # not strictly needed, depending on runner configuration
+#    DOCKER_HOST: "tcp://docker:2375"
+#    DOCKER_TLS_CERTDIR: ""
+#
+#    IMAGE_NAME: "user-service:x86"
+#    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
+#    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+#    AZURE_REGISTRY: dentanoidregistry.azurecr.io
+#
+#  script:
+#    - docker context ls
+#    - docker info
+#    - docker buildx create --use
+#    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
+#    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
+#    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
+#    - docker push $AZURE_REGISTRY/services/user
+#    - docker images
 
-    IMAGE_NAME: "user-service:x86"
-    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
-    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
-    AZURE_REGISTRY: dentanoidregistry.azurecr.io
-
+deploy:
+  stage: deploy
+  image:
+    name: mcr.microsoft.com/azure-cli
+    entrypoint: [""]
   script:
-    - docker context ls
-    - docker info
-    - docker buildx create --use
-    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
-    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
-    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
-    - docker push $AZURE_REGISTRY/services/user
-    - docker images
+    - az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
     
 
 

@@ -9,36 +9,38 @@
 
 
 stages:
-#  - build
-#  - test
+  - build
+  - test
   - build-docker-image
   - deploy
 
-#compile:
-#  stage: build
-#  image: golang:latest
-#  tags:
-#    - docker
-#  script:
-#    - mkdir -p binaries
-#    - go build -o binaries ./...
-#  artifacts:
-#    paths:
-#      - binaries
+compile:
+  stage: build
+  image: golang:latest
+  tags:
+    - docker
+  script:
+    - mkdir -p binaries
+    - go build -o binaries ./...
+  artifacts:
+    paths:
+      - binaries
 
-#test:
-#  stage: test
-#  image: golang:latest
-#  tags:
-#    - docker
-#  script:
-#    - go test ./... -v
+test:
+  stage: test
+  image: golang:latest
+  tags:
+    - docker
+  script:
+    - go test ./... -v
 
 build-docker-image:
   stage: build-docker-image
   image: docker:latest
   tags: 
     - docker-build
+  only:
+    - main
   services:
     - docker:dind
   variables:  # not strictly needed, depending on runner configuration
@@ -67,6 +69,8 @@ deploy:
   stage: deploy
   tags:
     - docker
+  only:
+    - main
   image:
     name: mcr.microsoft.com/azure-cli
     entrypoint: [""]

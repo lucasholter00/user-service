@@ -47,4 +47,4 @@ build-docker-image:
     - docker context ls
     - docker info
     - docker buildx create --use
-    - docker buildx build --platform linux/amd64 -t user-service:x86 .
+    - docker buildx build --platform linux/amd64 -t user-service:x86 . --load

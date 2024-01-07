@@ -51,6 +51,9 @@ build-docker-image:
     AZURE_REGISTRY: dentanoidregistry.azurecr.io
 
   script:
+    - touch .env
+    - echo -e "MONGO_URI = $MONGO_URI \n" >> .env
+    - echo "BROKER_URL = $BROKER_URL" >> .env
     - docker context ls
     - docker info
     - docker buildx create --use

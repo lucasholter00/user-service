@@ -74,6 +74,7 @@ deploy:
 
   script:
     - az --version
+    - az acr login --name dentanoidcontainerregistry
     - az container delete --name user-service --resource-group dentanoid --yes
     # Add your Azure CLI commands here
   

@@ -35,13 +35,10 @@ stages:
 
 build-docker-image:
   stage: build-docker-image
-  image: ubuntu:latest
+  image: docker:latest
   tags: 
     - shell
 
-  before_script:
-    - sudo apt-get update -y
-    - sudo apt-get install -y docker
   script:
     - docker context ls
     - docker info

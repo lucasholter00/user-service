@@ -69,6 +69,17 @@ deploy:
     entrypoint: [""]
   script:
     - az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
+
+# Install Docker
+    - curl -fsSL https://get.docker.com -o get-docker.sh
+    - sh get-docker.sh
+
+    # Start Docker daemon
+    - sudo systemctl start docker
+
+    # Verify Docker installation
+    - docker --version
+
     - az acr login --name dentanoidRegistry
     #- az container create --resource-group Dentanoid --name user-service2 --image mydockerimage
     

@@ -71,8 +71,9 @@ deploy:
   image: docker:latest
 
   before_script:
-    - apk add py3-pip
-    - apk add gcc musl-dev python3-dev libffi-dev openssl-dev cargo make
+    - apk --no-cache add python3 py3-pip
+    - python3 -m venv /venv
+    - source /venv/bin/activate
     - pip install azure-cli
 
   services:

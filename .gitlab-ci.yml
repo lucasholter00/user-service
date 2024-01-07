@@ -58,5 +58,9 @@ build-docker-image:
     - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
     - docker push $AZURE_REGISTRY/services/user
     - docker images
-    - az
+    
+    - apt-get update
+    - apt-get install -y curl gnupg
+    - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+    - az --version
   

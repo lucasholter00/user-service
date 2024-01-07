@@ -40,8 +40,8 @@ build-docker-image:
     - shell
 
   before_script:
-  - apk update
-  - apk add docker
+    - apk update
+    - apk add docker
   script:
     - docker context ls
     - docker info

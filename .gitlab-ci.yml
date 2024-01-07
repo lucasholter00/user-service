@@ -72,7 +72,7 @@ deploy:
 
   before_script:
     - apk --no-cache add python3 py3-pip
-    - sudo apk add gcc python3-dev musl-dev
+    - apk add gcc python3-dev musl-dev linux-headers
     - python3 -m venv /venv
     - source /venv/bin/activate
     - pip install azure-cli

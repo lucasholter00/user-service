@@ -67,7 +67,7 @@ variables:
 deploy:
   stage: deploy
   tags:
-    - docker
+    - docker-build
   image: docker:latest
 
   before_script:

@@ -35,13 +35,10 @@ test:
 
 build-docker-image:
   stage: build-docker-image
-  image: docker:latest
-  variables:
-    DOCKER_HOST: tcp://localhost:2375
+  image: alpine:latest
   tags: 
     - docker
   script:
-    - unset DOCKER_HOST
     - docker context ls
     - docker info
     - docker buildx create --use

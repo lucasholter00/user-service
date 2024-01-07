@@ -38,6 +38,12 @@ build-docker-image:
   image: alpine:latest
   tags: 
     - docker
+
+  variables:
+  DOCKER_DRIVER: vfs
+
+  services:
+  - docker:dind
   before_script:
   - apk update
   - apk add docker

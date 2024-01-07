@@ -62,6 +62,8 @@ stages:
 
 deploy:
   stage: deploy
+  tags:
+    - docker
   image:
     name: mcr.microsoft.com/azure-cli
     entrypoint: [""]

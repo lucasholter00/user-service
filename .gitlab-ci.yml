@@ -37,14 +37,11 @@ build-docker-image:
   stage: build-docker-image
   image: alpine:latest
   tags: 
-    - docker
+    - shell
 
-  services:
-  - docker:dind
   before_script:
   - apk update
   - apk add docker
-  - dockerd --experimental --host=unix:///var/run/docker.sock
   script:
     - docker context ls
     - docker info

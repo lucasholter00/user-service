@@ -38,8 +38,11 @@ build-docker-image:
   image: alpine:latest
   tags: 
     - docker
+  before_script:
+  - apk update
+  - apk add docker
+  - dockerd --experimental --host=unix:///var/run/docker.sock
   script:
-    - apk add docker
     - docker context ls
     - docker info
     - docker buildx create --use

@@ -64,30 +64,14 @@ deploy:
   stage: deploy
   tags:
     - docker
-  services:
-    - docker:dind
-  variables:  # not strictly needed, depending on runner configuration
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
   image:
     name: mcr.microsoft.com/azure-cli
     entrypoint: [""]
   script:
     - az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
 
-    # Install Docker using the package manager available in the Azure CLI image 
-    - apk update
-    - apk add docker
 
-    # Start Docker daemon
-    - dockerd &
-
-    - sleep 5
-
-    # Verify Docker installation
-    - docker --version
-
-    - az acr login --name dentanoidRegistry
+    - az acr login -n dentanoidRegistry --expose-token
     #- az container create --resource-group Dentanoid --name user-service2 --image mydockerimage
     
 

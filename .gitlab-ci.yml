@@ -41,6 +41,7 @@ build-docker-image:
   tags: 
     - docker
   script:
+    - unset DOCKER_HOST
     - docker context ls
     - docker info
     - docker buildx create --use

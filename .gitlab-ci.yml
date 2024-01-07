@@ -12,7 +12,6 @@ stages:
 #  - build
 #  - test
   - build-docker-image
-  - push-docker-image
 
 #compile:
 #  stage: build
@@ -52,4 +51,5 @@ build-docker-image:
     - docker info
     - docker buildx create --use
     - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
+    - docker images
   

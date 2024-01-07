@@ -66,6 +66,8 @@ variables:
 
 deploy:
   stage: deploy
+  tags:
+    - shell
   image: 
     name: mcr.microsoft.com/azure-cli
     entrypoint: [""]

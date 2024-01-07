@@ -66,11 +66,11 @@ variables:
 
 deploy:
   stage: deploy
-  image: debian:bullseye-slim
+  image: 
+    name: mcr.microsoft.com/azure-cli
+    entrypoint: [""]
+
   script:
-    - sudo apt-get update
-    - sudo apt-get install -y curl gnupg
-    - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
     - az --version
     # Add your Azure CLI commands here
   

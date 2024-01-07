@@ -64,6 +64,11 @@ deploy:
   stage: deploy
   tags:
     - docker
+  services:
+    - docker:dind
+  variables:  # not strictly needed, depending on runner configuration
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_TLS_CERTDIR: ""
   image:
     name: mcr.microsoft.com/azure-cli
     entrypoint: [""]

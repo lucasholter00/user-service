@@ -39,9 +39,6 @@ build-docker-image:
   tags: 
     - docker
 
-  variables:
-  DOCKER_DRIVER: vfs
-
   services:
   - docker:dind
   before_script:

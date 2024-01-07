@@ -40,8 +40,8 @@ build-docker-image:
     - shell
 
   before_script:
-    - apt-get update -y
-    - apt-get install -y docker
+    - sudo apt-get update -y
+    - sudo apt-get install -y docker
   script:
     - docker context ls
     - docker info

@@ -48,7 +48,7 @@ build-docker-image:
     IMAGE_NAME: "user-service:x86"
     AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
     AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
-    AZURE_REGISTRY: dentanoidcontainerregistry.azurecr.io
+    AZURE_REGISTRY: dentanoidregistry.azurecr.io
 
   script:
     - docker context ls

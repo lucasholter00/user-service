@@ -71,8 +71,8 @@ deploy:
   image: docker:latest
 
   before_script:
-    - apk --no-cache add azure-cli
     - pip3 install azure-cli
+    - apk --no-cache add azure-cli
 
   services:
     - docker:dind

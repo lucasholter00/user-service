@@ -68,9 +68,10 @@ deploy:
   stage: deploy
   tags:
     - docker
-  image: 
-    name: mcr.microsoft.com/azure-cli
-    entrypoint: [""]
+  image: docker:latest
+
+  before_script:
+    - apk --no-cache add azure-cli
 
   script:
     - docker --version

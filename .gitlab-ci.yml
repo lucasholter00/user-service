@@ -73,6 +73,11 @@ deploy:
   before_script:
     - apk --no-cache add azure-cli
 
+  services:
+    - docker:dind
+  variables:  # not strictly needed, depending on runner configuration
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_TLS_CERTDIR: ""
   script:
     - docker --version
     - az --version

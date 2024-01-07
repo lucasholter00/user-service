@@ -39,7 +39,7 @@ build-docker-image:
   tags: 
     - docker
   script:
-    - apt-get install -y docker-ce docker-ce-cli containerd.io
+    - apk add docker
     - docker context ls
     - docker info
     - docker buildx create --use

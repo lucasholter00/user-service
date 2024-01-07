@@ -44,23 +44,12 @@ build-docker-image:
   variables:  # not strictly needed, depending on runner configuration
     DOCKER_HOST: "tcp://docker:2375"
     DOCKER_TLS_CERTDIR: ""
+
+    IMAGE_NAME: "user-service:x86"
+
   script:
     - docker context ls
     - docker info
     - docker buildx create --use
-    - docker buildx build --platform linux/amd64 -t user-service:x86 . --push
-
-push-docker-image:
-  stage: push-docker-image
-  image: docker:latest
-  tags:
-    - docker-build
-  services:
-    - docker:dind
-  variables:  # not strictly needed, depending on runner configuration
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
-  script:
-    - docker pull user-service:x86 
-    - docker images -q user-service:x86
+    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
   

@@ -44,6 +44,7 @@ build-docker-image:
     DOCKER_HOST: "tcp://docker:2375"
     DOCKER_TLS_CERTDIR: ""
   script:
+    - cd group-20-distributed-systems-user-service
     - docker context ls
     - docker info
     - docker buildx create --use

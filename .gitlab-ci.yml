@@ -70,7 +70,7 @@ deploy:
   script:
     - az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
 
-    - az container create --resource-group Dentanoid --name MyContainer --image dentanoidRegistry.azurecr.io/services/user:latest --registry-username "$CI_REGISTRY_USER" --registry-password "$CI_REGISTRY_PASSWORD"
+    - az container create --resource-group Dentanoid --name user-service-ci-test --image dentanoidRegistry.azurecr.io/services/user:latest --registry-username "$CI_REGISTRY_USER" --registry-password "$CI_REGISTRY_PASSWORD"
     #- az container create --resource-group Dentanoid --name user-service2 --image mydockerimage
     
 

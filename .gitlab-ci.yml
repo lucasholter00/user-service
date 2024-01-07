@@ -12,6 +12,7 @@ stages:
 #  - build
 #  - test
   - build-docker-image
+  - deploy
 
 #compile:
 #  stage: build
@@ -33,34 +34,43 @@ stages:
 #  script:
 #    - go test ./... -v
 
-build-docker-image:
-  stage: build-docker-image
-  image: docker:latest
-  tags: 
-    - docker-build
-  services:
-    - docker:dind
-  variables:  # not strictly needed, depending on runner configuration
-    DOCKER_HOST: "tcp://docker:2375"
-    DOCKER_TLS_CERTDIR: ""
+#build-docker-image:
+#  stage: build-docker-image
+#  image: docker:latest
+#  tags: 
+#    - docker-build
+#  services:
+#    - docker:dind
+#  variables:  # not strictly needed, depending on runner configuration
+#    DOCKER_HOST: "tcp://docker:2375"
+#    DOCKER_TLS_CERTDIR: ""
+#
+#    IMAGE_NAME: "user-service:x86"
+#    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
+#    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+#    AZURE_REGISTRY: dentanoidcontainerregistry.azurecr.io
 
-    IMAGE_NAME: "user-service:x86"
-    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
-    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
-    AZURE_REGISTRY: dentanoidcontainerregistry.azurecr.io
-
-  script:
-    - docker context ls
-    - docker info
-    - docker buildx create --use
-    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
-    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
-    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
-    - docker push $AZURE_REGISTRY/services/user
-    - docker images
+#  script:
+#    - docker context ls
+#    - docker info
+#    - docker buildx create --use
+#    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
+#    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
+#    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
+#    - docker push $AZURE_REGISTRY/services/user
+#    - docker images
     
+
+variables:
+  AZURE_CLI_VERSION: "2.28.0"  # Specify the version you want to install
+
+deploy:
+  stage: deploy
+  image: debian:bullseye-slim
+  script:
     - apt-get update
     - apt-get install -y curl gnupg
     - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
     - az --version
+    # Add your Azure CLI commands here
   

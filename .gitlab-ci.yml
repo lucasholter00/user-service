@@ -75,7 +75,7 @@ deploy:
     - apk add docker
 
     # Start Docker daemon
-    - service docker start
+    - /etc/init.d/docker start
 
     # Verify Docker installation
     - docker --version

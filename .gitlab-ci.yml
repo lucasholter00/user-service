@@ -37,7 +37,7 @@ build-docker-image:
   stage: build-docker-image
   image: docker:latest
   tags: 
-    - shell
+    - docker-build
 
   script:
     - docker context ls

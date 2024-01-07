@@ -12,6 +12,7 @@ stages:
 #  - build
 #  - test
   - build-docker-image
+  - push-docker-image
 
 #compile:
 #  stage: build
@@ -48,3 +49,12 @@ build-docker-image:
     - docker info
     - docker buildx create --use
     - docker buildx build --platform linux/amd64 -t user-service:x86 . --load
+
+push-docker-image:
+  stage: push-docker-image
+  image: docker:latest
+  tags:
+    - docker-build
+  script:
+    - docker images
+  

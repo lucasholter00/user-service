@@ -68,8 +68,8 @@ deploy:
   stage: deploy
   image: debian:bullseye-slim
   script:
-    - apt-get update
-    - apt-get install -y curl gnupg
+    - sudo apt-get update
+    - sudo apt-get install -y curl gnupg
     - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
     - az --version
     # Add your Azure CLI commands here

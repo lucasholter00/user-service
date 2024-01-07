@@ -34,58 +34,32 @@ stages:
 #  script:
 #    - go test ./... -v
 
-#build-docker-image:
-#  stage: build-docker-image
-#  image: docker:latest
-#  tags: 
-#    - docker-build
-#  services:
-#    - docker:dind
-#  variables:  # not strictly needed, depending on runner configuration
-#    DOCKER_HOST: "tcp://docker:2375"
-#    DOCKER_TLS_CERTDIR: ""
-#
-#    IMAGE_NAME: "user-service:x86"
-#    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
-#    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
-#    AZURE_REGISTRY: dentanoidcontainerregistry.azurecr.io
-
-#  script:
-#    - docker context ls
-#    - docker info
-#    - docker buildx create --use
-#    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
-#    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
-#    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
-#    - docker push $AZURE_REGISTRY/services/user
-#    - docker images
-    
-
-variables:
-  AZURE_CLI_VERSION: "2.28.0"  # Specify the version you want to install
-
-deploy:
-  stage: deploy
-  tags:
-    - docker-build
+build-docker-image:
+  stage: build-docker-image
   image: docker:latest
-
-  before_script:
-    - apk --no-cache add python3 py3-pip
-    - apk add gcc python3-dev musl-dev linux-headers
-    - python3 -m venv /venv
-    - source /venv/bin/activate
-    - pip install azure-cli
-
+  tags: 
+    - docker-build
   services:
     - docker:dind
   variables:  # not strictly needed, depending on runner configuration
     DOCKER_HOST: "tcp://docker:2375"
     DOCKER_TLS_CERTDIR: ""
+
+    IMAGE_NAME: "user-service:x86"
+    AZURE_REGISTRY_USERNAME: $CI_REGISTRY_USER
+    AZURE_REGISTRY_PASSWORD: $CI_REGISTRY_PASSWORD
+    AZURE_REGISTRY: dentanoidcontainerregistry.azurecr.io
+
   script:
-    - docker --version
-    - az --version
-    - az acr login --name dentanoidcontainerregistry
-    - az container delete --name user-service --resource-group dentanoid --yes
-    # Add your Azure CLI commands here
+    - docker context ls
+    - docker info
+    - docker buildx create --use
+    - docker buildx build --platform linux/amd64 -t $IMAGE_NAME . --load
+    - docker tag $IMAGE_NAME $AZURE_REGISTRY/services/user
+    - docker login $AZURE_REGISTRY -u $AZURE_REGISTRY_USERNAME -p $AZURE_REGISTRY_PASSWORD
+    - docker push $AZURE_REGISTRY/services/user
+    - docker images
+    
+
+
   
